@@ -1,0 +1,25 @@
+{
+  "name": "cleanblog",
+  "version": "1.0.0",
+  "description": "Clean Blog Project",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beratcanozenn/Clean-Blog.git"
+  },
+  "author": "Berat Can ÖZEN",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/beratcanozenn/Clean-Blog/issues"
+  },
+  "homepage": "https://github.com/beratcanozenn/Clean-Blog#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1"
+  }
+}
