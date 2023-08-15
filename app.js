@@ -1,9 +1,11 @@
 const express = require("express");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
-const moment = require("moment");
-const Post = require("./models/Post");
+const methodOverride = require("method-override");
 const app = express();
+
+const postComponent = require("./components/postComponent");
+const pageComponent = require("./components/pageComponent");
 
 // DB Connection
 mongoose
@@ -20,42 +22,22 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(
+  methodOverride("_method", {
+    methods: ["POST", "GET"],
+  })
+);
 
 // Routes
-app.get("/", async (req, res) => {
-  const posts = await Post.find({});
-  res.render("index", { posts });
-});
+app.get("/", postComponent.getAllPosts);
+app.get("/posts/:id", postComponent.getPost);
+app.post("/posts", postComponent.createPost);
+app.put("/posts/:id", postComponent.updatePost);
+app.delete("/posts/:id", postComponent.deletePost);
 
-app.get("/posts/:id", async (req, res) => {
-  const post = await Post.findById(req.params.id);
-  res.render("post", { post });
-});
-
-app.get("/about", (req, res) => {
-  res.render("about");
-});
-
-app.get("/add_post", (req, res) => {
-  res.render("add_post");
-});
-
-app.post("/posts", async (req, res) => {
-  const { title, detail } = req.body;
-
-  const post = new Post({
-    title,
-    detail,
-  });
-
-  await post
-    .save()
-    .then(() => console.log("Veri Eklendi"))
-    .catch((err) => console.log("Veri eklenemedi. Hata = " + err));
-
-  res.redirect("/");
-});
-
+app.get("/about", pageComponent.getAboutPage);
+app.get("/add_post", pageComponent.getAddPage);
+app.get("/posts/edit/:id", pageComponent.getEditPage);
 const port = 3000;
 app.listen(port, () => {
   console.log(`Sunucu ${port} da çalışıyor..`);

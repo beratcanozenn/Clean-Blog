@@ -28,14 +28,16 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-              
 
-              
+
+
               <%= post.detail %> <br>
-              <%= post.dateCreated %>
-              
+                <%= post.dateCreated %>
+                  <br> <br><br><br><br><br>
+                  <a href="/posts/edit/<%=post._id%>" class="btn btn-primary">Update</a>
+                  <a href="/posts/<%=post._id%>?_method=DELETE" onclick="return confirm('Are You Sure ?')"
+                    class="btn btn-danger">Delete</a>
 
-             
             </div>
           </div>
         </div>
