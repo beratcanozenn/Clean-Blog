@@ -1,6 +1,7 @@
 const express = require("express");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+const moment = require("moment");
 const Post = require("./models/Post");
 const app = express();
 
@@ -23,8 +24,12 @@ app.use(express.json());
 // Routes
 app.get("/", async (req, res) => {
   const posts = await Post.find({});
-
   res.render("index", { posts });
+});
+
+app.get("/posts/:id", async (req, res) => {
+  const post = await Post.findById(req.params.id);
+  res.render("post", { post });
 });
 
 app.get("/about", (req, res) => {
